@@ -7,6 +7,8 @@ import '../controllers/login_controller.dart';
 class LoginScreen extends StatelessWidget {
   LoginScreen({super.key});
   final formkey = GlobalKey<FormState>();
+  final emailController = TextEditingController(text: "tester22111@gmail.com");
+  final passwordController = TextEditingController(text: "11112222");
 
   @override
   Widget build(BuildContext context) {
@@ -38,6 +40,7 @@ class LoginScreen extends StatelessWidget {
                     ],
                   ),
                   TextFormField(
+                    controller: emailController,
                     decoration: InputDecoration(
                       label: Text("Email"),
                     ),
@@ -52,6 +55,8 @@ class LoginScreen extends StatelessWidget {
                     height: 20,
                   ),
                   TextFormField(
+                    controller: passwordController,
+                    obscureText: true,
                     decoration: InputDecoration(
                       label: Text("Password"),
                     ),
@@ -70,7 +75,13 @@ class LoginScreen extends StatelessWidget {
                       Expanded(
                         child: ElevatedButton(
                           onPressed: () {
-                            if (formkey.currentState!.validate()) {}
+                            if (formkey.currentState!.validate()) {
+                              final email = emailController.text;
+                              final password = passwordController.text;
+
+                              _controller.login(
+                                  email: email, password: password);
+                            }
                           },
                           child: Text("Login"),
                         ),
